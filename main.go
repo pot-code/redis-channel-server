@@ -19,5 +19,5 @@ func main() {
 	e.Use(middleware.Recover())
 	e.GET("/ws", ws.ServeHTTP)
 	e.POST("/pub", a.publish)
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start("localhost:8080"))
 }
