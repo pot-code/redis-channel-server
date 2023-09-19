@@ -31,9 +31,8 @@ func (h *WebsocketHandler) ServeHTTP(e echo.Context) error {
 	defer ws.Close()
 
 	cid := e.QueryParam("channel")
-	sub := h.cm.Subscribe(e.Request().Context(), cid)
-	for msg := range sub.Channel() {
-		err := ws.WriteMessage(websocket.TextMessage, []byte(msg.String()))
+	for msg := range h.cm.Subscribe(e.Request().Context(), cid) {
+		err := ws.WriteMessage(websocket.TextMessage, msg)
 		if err != nil {
 			return err
 		}

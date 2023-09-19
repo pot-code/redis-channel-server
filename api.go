@@ -4,11 +4,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Message struct {
-	Channel string `json:"channel"`
-	Message string `json:"message"`
-}
-
 type Api struct {
 	cm *RedisChannelManger
 }
@@ -25,7 +20,7 @@ func (a *Api) publish(e echo.Context) error {
 		return err
 	}
 
-	err := a.cm.Publish(e.Request().Context(), m.Channel, m.Message)
+	err := a.cm.Publish(e.Request().Context(), &m)
 	if err != nil {
 		return err
 	}
